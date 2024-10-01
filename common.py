@@ -185,7 +185,7 @@ class inventory():
         self.complete_units = complete_units
         
     def units_possible_to_build(self):
-        units_possible = [p.quantity/p.bom_qty for name, p in self.parts.iteritems()]
+        units_possible = [p.quantity / p.bom_qty for name, p in self.parts.items()]
         if units_possible:
             return min(units_possible)
         else:
@@ -199,21 +199,21 @@ class inventory():
         
     def build_complete_unit(self, qty):
         units_to_build = min(self.units_possible_to_build(), qty)
-        for name, p in self.parts.iteritems():
+        for name, p in self.parts.items():
             self.parts[name].quantity -= units_to_build * p.bom_qty
         self.complete_units += units_to_build
 
     @property
     def cog_per_unit(self):
         count = 0
-        for name, p in self.parts.iteritems():
+        for name, p in self.parts.items():
             count += p.price_per_unit * p.bom_qty
         return count
 
     @property
     def total(self):
         count = 0
-        for name, p in self.parts.iteritems():
+        for name, p in self.parts.items():
             count += p.value
         return count
 

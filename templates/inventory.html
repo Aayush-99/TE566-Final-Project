@@ -32,7 +32,7 @@
     <th>Value</th>
     <th>Re-order</th>
   </tr>
-  {% for partname, part in inventory.parts.iteritems() %}
+  {% for partname, part in inventory.parts.items() %}
   <tr>
     <td>{{ partname|e }}</td>
     <td>${{ part.price_per_unit|e }}</td>
