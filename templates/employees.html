@@ -2,55 +2,91 @@
 <html>
 <head>
     <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styling */
         table {
             border-collapse: collapse;
             width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
             text-align: left;
-            padding: 8px;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
         }
 
-        tr:nth-child(even){background-color: #eab0ff}
-
+        /* Header Styling */
         th {
-            background-color: #bb00ff;
+            background-color: #007bff;
             color: white;
+        }
+
+        /* Alternating Row Colors */
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Hover Effect */
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Table Container */
+        .table-container {
+            overflow-x: auto;
         }
     </style>
 </head>
-
-
 <body>
+
 <h1>Employee Data</h1>
-<table>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Address1</th>
-        <th>Address2</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Zipcode</th>
-        <th>SSN</th>
-        <th>Witholdings</th>
-        <th>Salary</th>
-    </tr>
-    {% for employee in employees %}
-    <tr>
-        <td>{{ employee.firstname|e }}</h2></a></td>
-        <td>{{ employee.lastname|e }}</h2></a></td>
-        <td>{{ employee.address1|e }}</h2></a></td>
-        <td>{{ employee.address2|e }}</h2></a></td>
-        <td>{{ employee.city|e }}</h2></a></td>
-        <td>{{ employee.state|e }}</h2></a></td>
-        <td>{{ employee.zipcode|e }}</h2></a></td>
-        <td>{{ employee.ssn|e }}</h2></a></td>
-        <td>{{ employee.witholdings|e }}</h2></a></td>
-        <td>${{ employee.salary|e }}</h2></a></td>
-    </tr>
-    {% endfor %}
-</table>
+
+<div class="table-container">
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address1</th>
+            <th>Address2</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zipcode</th>
+            <th>SSN</th>
+            <th>Withholdings</th>
+            <th>Salary</th>
+        </tr>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.firstname|e }}</td>
+            <td>{{ employee.lastname|e }}</td>
+            <td>{{ employee.address1|e }}</td>
+            <td>{{ employee.address2|e }}</td>
+            <td>{{ employee.city|e }}</td>
+            <td>{{ employee.state|e }}</td>
+            <td>{{ employee.zipcode|e }}</td>
+            <td>{{ employee.ssn|e }}</td>
+            <td>{{ employee.witholdings|e }}</td>
+            <td>${{ employee.salary|e }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 </body>
 </html>
