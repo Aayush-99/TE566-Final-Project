@@ -29,19 +29,19 @@ class model():
                                                 accruals=0,
                                                 mortgage=0)
         self.employees_data.append(
-            employee('john', 'smith', '123 address ln', 'apt 100', 'Seattle', 'WA', '12345', '123-45-6789', '0', '60000'))
+            employee('Emily', 'Anderson', '742 Evergreen Terrace', 'Apt 5B', 'Springfield', 'IL', '62704', '123-45-6781', '2', '85000'))
         self.employees_data.append(
-            employee('jane', 'doe', '123 address ln', 'apt 100', 'Seattle', 'WA', '12345', '123-45-6789', '0', '60000'))
+            employee('Michael', 'Johnson', '58 Kings Road', 'Suite 12', 'Madison', 'WI', '53703', '234-56-7892', '1', '92000'))
         self.employees_data.append(
-            employee('sara', 'jiang', '123 address ln', 'apt 100', 'Seattle', 'WA', '12345', '123-45-6789', '0', '150000'))
+            employee('Sophia', 'Brown', '1600 Pennsylvania Ave NW', '', 'Washington', 'DC', '20500', '345-67-8903', '3', '115000'))
         self.employees_data.append(
-            employee('justin', 'zhou', '123 address ln', 'apt 100', 'Seattle', 'WA', '12345', '123-45-6789', '0', '100000'))
+            employee('David', 'Garcia', '1234 Elm Street', 'Apt 302', 'Austin', 'TX', '78701', '456-78-9014', '1', '78000'))
         self.employees_data.append(
-            employee('brian', 'lilly', '123 address ln', 'apt 100', 'Seattle', 'WA', '12345', '123-45-6789', '0', '200000'))
+            employee('Olivia', 'Martinez', '789 Maple Avenue', 'Apt 22A', 'San Francisco', 'CA', '94102', '567-89-0125', '0', '120000'))
         self.employees_data.append(
-            employee('kevin', 'lee', '123 address ln', 'apt 100', 'Seattle', 'WA', '12345', '123-45-6789', '0', '45000'))
+            employee('James', 'Lee', '456 Oak Street', 'Apt 6', 'Portland', 'OR', '97205', '678-90-1236', '2', '68000'))
         self.employees_data.append(
-            employee('angela', 'jaw', '123 address ln', 'apt 100', 'Seattle', 'WA', '12345', '123-45-6789', '0', '90000'))
+            employee('Ava', 'Wilson', '951 Pine Lane', '', 'Chicago', 'IL', '60605', '789-01-2347', '1', '98000'))
         
         self.customers_data.append(customer('Microcenter', '', '', '', '', '', '', '', '1200.00'))
         self.customers_data.append(customer('Best Buy', '', '', '', '', '', '', '', '1200.00'))
