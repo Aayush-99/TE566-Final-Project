@@ -2,70 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pay Employee</title>
     <style>
-        h1 {
-            background-color: #bb00ff;
-            color: white;
-            width: 375px;
-            text-align: center;
+        /* General Styling */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
-        table {
-            border-collapse: collapse;
+
+        /* Container */
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
             width: 100%;
         }
 
-        th, td {
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even){background-color: #ba03fc}
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        form {
-            font-family: Tahoma, Geneva, sans-serif;
-            font-size: 14px;
-            font-style: italic;
-            line-height: 24px;
+        /* Header Styling */
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px; /* Increase the font size */
             font-weight: bold;
-            color: #bb00ff;
-            text-decoration: none;
         }
-        input {
-            width: 375px;
-            display: block;
-            border: 1px solid #999;
-            height: 25px;
-            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        select:focus,
+        input[type="submit"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Button Styling */
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-<h1>Pay Employee</h1>
-<form method=post>
-    <dl>
-        {% for field in form %}
-        <tr>
-            <th>{{ field.label }}</th>
-            <td>{{ field }}</td>
-        </tr>
-        {% endfor %}
-    </dl>
-    <p><input type=submit value="Pay Employee">
-</form>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<ul class=flashes>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
-{% block body %}{% endblock %}
+    <div class="form-container">
+        <h1>Pay Employee</h1>
+        <form method="post">
+            {% for field in form %}
+                <label for="{{ field.id }}">{{ field.label }}</label>
+                {{ field(class="input-field")|safe }}
+            {% endfor %}
+            <input type="submit" value="Pay Employee">
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>

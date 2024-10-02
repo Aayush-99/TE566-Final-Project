@@ -1,78 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-    th, td {
-      text-align: left;
-      padding: 8px;
-    }
+        /* Header Styling */
+        h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-    tr:nth-child(even){background-color: #eab0ff}
+        /* Subtitle Styling */
+        .subtitle {
+            color: #007bff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 1200px;
+        }
 
-    th {
-      background-color: #bb00ff;
-      color: white;
-    }
-  </style>
+        /* Table Container */
+        .table-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 30px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center; /* Center-align text in all table cells */
+            vertical-align: middle; /* Vertically center-align text */
+        }
+
+        /* Remove Background for Tertiary Titles */
+        th {
+            color: #007bff;
+            font-weight: bold;
+            border-bottom: 2px solid #007bff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Amount Formatting */
+        .amount {
+            text-align: right;
+        }
+    </style>
 </head>
 
-
 <body>
-<h1>Payroll Payments/History</h1>
-<table>
-  <tr>
-    <th>Date Paid</th>
-    <th>Employee</th>
-    <th>Dispursement</th>
-    <th>Witholding</th>
-  </tr>
-  {% for payroll_event in payroll.payroll_events %}
-  <tr>
-    <td>{{ payroll_event.date_paid|e }}</h2></a></td>
-    <td>{{ payroll_event.lastname|e }}</h2></a></td>
-    <td>{{ "${:,.2f}".format(payroll_event.dispursement)|e }}</h2></a></td>
-    <td>{{ "${:,.2f}".format(payroll_event.witholdings)|e }}</h2></a></td>
-  </tr>
-  {% endfor %}
-</table>
-<br>
-<table>
-  <tr>
-    <th><h3>Total Dispursement</h3></th>
-    <th><h3>Total Witholding</h3></th>
-  </tr>
-  <tr>
-    <td>{{ "${:,.2f}".format(payroll.total_dispursement)|e }}</h2></a></td>
-    <td>{{ "${:,.2f}".format(payroll.total_witholdings)|e }}</h2></a></td>
-  </tr>
-</table>
-<br>
-<table>
-  <tr>
-    <th>Salary</th>
-    <th>Bounce</th>
-    <th>Federal Tax Withheld</th>
-    <th>State Tax Withheld</th>
-    <th>Social Security</th>
-    <th>Medicare</th>
-    <th>Amount Paid</th>
-  </tr>
-  {% for payroll_event in payroll.payroll_events %}
-  <tr>
-    <td>{{ payroll_event.salary|e }}</h2></a></td>
-    <td>{{ payroll_event.bounce|e }}</h2></a></td>
-    <td>{{ payroll_event.federal_tax|e }}</h2></a></td>
-    <td>{{ payroll_event.state_tax|e }}</h2></a></td>
-    <td>{{ payroll_event.social_sec_tax|e }}</h2></a></td>
-    <td>{{ payroll_event.medicare_tax|e }}</h2></a></td>
-    <td>{{ payroll_event.dispursement|e }}</h2></a></td>
-  </tr>
-  {% endfor %}
-</table>
+    <h1>Payroll Payments/History</h1>
+    
+    <div class="table-container">
+        <div class="subtitle">Payroll Events</div>
+        <table>
+            <tr>
+                <th>Date Paid</th>
+                <th>Employee</th>
+                <th>Disbursement</th>
+                <th>Withholding</th>
+            </tr>
+            {% for payroll_event in payroll.payroll_events %}
+            <tr>
+                <td>{{ payroll_event.date_paid|e }}</td>
+                <td>{{ payroll_event.lastname|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.dispursement)|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.witholdings)|e }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="subtitle">Total Payments</div>
+        <table>
+            <tr>
+                <th>Total Disbursement</th>
+                <th>Total Withholding</th>
+            </tr>
+            <tr>
+                <td class="amount">{{ "${:,.2f}".format(payroll.total_dispursement)|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll.total_witholdings)|e }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <div class="subtitle">Detailed Breakdown</div>
+        <table>
+            <tr>
+                <th>Salary</th>
+                <th>Bounce</th>
+                <th>Federal Tax Withheld</th>
+                <th>State Tax Withheld</th>
+                <th>Social Security</th>
+                <th>Medicare</th>
+                <th>Amount Paid</th>
+            </tr>
+            {% for payroll_event in payroll.payroll_events %}
+            <tr>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.salary)|e }}</td>
+                <td class="amount">{{ payroll_event.bounce|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.federal_tax)|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.state_tax)|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.social_sec_tax)|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.medicare_tax)|e }}</td>
+                <td class="amount">{{ "${:,.2f}".format(payroll_event.dispursement)|e }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>
