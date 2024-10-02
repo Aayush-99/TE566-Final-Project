@@ -1,51 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 375px;
-}
-h2 {
-    text-align: left;
-    padding: 8px;
-}
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Statement</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        table {
+            width: 80%;
+            max-width: 600px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid #dddddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+        }
+        td:nth-child(odd) {
+            text-align: left;
+            background-color: #f9f9f9;
+        }
+        tr:nth-child(even) td {
+            background-color: #f2f2f2;
+        }
+        tr:hover td {
+            background-color: #eaf2f8;
+        }
+        .total-row {
+            background-color: #d1e7dd;
+            font-weight: bold;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
-
 <body>
-<h1>Income Statement</h1>
-<h2>Sales</h2>
-<table>
-    <tr><th>Sales</th> <td>$ {{ income.sales|e }}</a></td>
-    <tr><th>COGS</th> <td>$ {{ income.cogs|e }}</a></td>
-    <tr><th>Gross Profit</th> <td>$ {{ income.gross_profit|e }}</a></td>
-</table>
-<h2>Expenses</h2>
-<table>
-    <tr><th>Payroll</th> <td>$ {{ income.payroll|e }}</a></td>
-    <tr><th>Payroll Witholding</th> <td>$ {{ income.payroll_withholding|e }}</a></td>
-    <tr><th>Bills</th> <td>$ {{ income.bills|e }}</a></td>
-    <tr><th>Annual Expenses</th> <td>$ {{ income.annual_expenses|e }}</a></td>
-    <tr><th><h3>Total Expenses</h3></th> <td>$ {{ income.expenses|e }}</a></td>
-</table>
-<br>
-<br>
-<table>
-    <tr><th>Other Income</th> <td>$ {{ income.other_income|e }}</a></td>
-    <tr><th>Operating Income</th> <td>$ {{ income.operating_income|e }}</a></td>
-    <tr><th>Income Taxes</th> <td>$ {{ income.income_taxes|e }}</a></td>
-    <tr><th>Net Income</th> <td>$ {{ income.net_income|e }}</a></td>
-</table>
+    <h1>Income Statement</h1>
+    <h2>Sales</h2>
+    <table>
+        <tr><th>Sales</th> <td>$ {{ '{:,.2f}'.format(income.sales) }}</td></tr>
+        <tr><th>COGS</th> <td>$ {{ '{:,.2f}'.format(income.cogs) }}</td></tr>
+        <tr class="total-row"><th>Gross Profit</th> <td>$ {{ '{:,.2f}'.format(income.gross_profit) }}</td></tr>
+    </table>
+    <h2>Expenses</h2>
+    <table>
+        <tr><th>Payroll</th> <td>$ {{ '{:,.2f}'.format(income.payroll) }}</td></tr>
+        <tr><th>Payroll Withholding</th> <td>$ {{ '{:,.2f}'.format(income.payroll_withholding) }}</td></tr>
+        <tr><th>Bills</th> <td>$ {{ '{:,.2f}'.format(income.bills) }}</td></tr>
+        <tr><th>Annual Expenses</th> <td>$ {{ '{:,.2f}'.format(income.annual_expenses) }}</td></tr>
+        <tr class="total-row"><th>Total Expenses</th> <td>$ {{ '{:,.2f}'.format(income.expenses) }}</td></tr>
+    </table>
+    <h2>Other Income</h2>
+    <table>
+        <tr><th>Other Income</th> <td>$ {{ '{:,.2f}'.format(income.other_income) }}</td></tr>
+        <tr class="total-row"><th>Operating Income</th> <td>$ {{ '{:,.2f}'.format(income.operating_income) }}</td></tr>
+        <tr><th>Income Taxes</th> <td>$ {{ '{:,.2f}'.format(income.income_taxes) }}</td></tr>
+        <tr class="total-row"><th>Net Income</th> <td>$ {{ '{:,.2f}'.format(income.net_income) }}</td></tr>
+    </table>
 </body>
 </html>

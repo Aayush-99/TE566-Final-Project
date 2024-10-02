@@ -1,90 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <style>
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 75%;
-    }
-    tr:nth-child(even) {
-      background-color: #dddddd;
-    }
-    td:nth-child(odd) {
-      text-align: left;
-      padding: 8px;
-    }
-    td:nth-child(even) {
-      text-align: right;
-      padding: 8px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Sheet</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            max-width: 1000px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+            text-align: right;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+        }
+        td:nth-child(odd) {
+            text-align: left;
+            background-color: #f9f9f9;
+        }
+        tr:nth-child(even) td {
+            background-color: #f2f2f2;
+        }
+        tr:hover td {
+            background-color: #eaf2f8;
+        }
+        td:nth-child(2), td:nth-child(4) {
+            font-weight: bold;
+            color: #333;
+        }
+        .total-row {
+            background-color: #d1e7dd;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
-<h1>Balance Sheet</h1>
-<table>
-  <tr>
-    <th>Assets</th>
-    <th></th>
-    <th>Liabilities & Net Worth</th>
-    <th></th>
-  </tr>
-  <tr>
-    <td>Cash</td>
-    <td>$ {{ balancesheet.cash|e }}</a></td>
-    <td>Accounts Payable</td>
-    <td>$ {{ balancesheet.ap|e }}</a></td>
-  </tr>
-  <tr>
-    <td>Accounts Receivable</td>
-    <td>$ {{ balancesheet.ar|e }}</a></td>
-    <td>Notes Payable</td>
-    <td>$ {{ balancesheet.notes_payable|e }}</a></td>
-  </tr>
-  <tr>
-    <td>Inventory</td>
-    <td>$ {{ balancesheet.inventory_data.total|e }}</a></td>
-    <td>Accruals</td>
-    <td>$ {{ balancesheet.accruals|e }}</a></td>
-  </tr>
-  <tr>
-    <td>Total Current Assets</td>
-    <td>$ {{ balancesheet.total_current_assets|e }}</a></td>
-    <td>Total Current Liabilities</td>
-    <td>$ {{ balancesheet.total_current_liabilities|e }}</a></td>
-  </tr>
-  <tr></tr>
-  <tr>
-    <td>Land/Buildings</td>
-    <td>$ {{ balancesheet.lands_buildings|e }}</a></td>
-    <td>Mortgage</td>
-    <td>$ {{ balancesheet.mortgage|e }}</a></td>
-  </tr>
-  <tr>
-    <td>Equipment</td>
-    <td>$ {{ balancesheet.equipment|e }}</a></td>
-    <td>Total Long Term Debt</td>
-    <td>$ {{ balancesheet.total_long_term_debt|e }}</a></td>
-  </tr>
-  <tr>
-    <td>Furniture and Fixtures</td>
-    <td>$ {{ balancesheet.furniture_fixtures|e }}</a></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Total Fixed Assets</td>
-    <td>$ {{ balancesheet.total_fixed_assets|e }}</a></td>
-    <td>Total Liabilities</td>
-    <td>$ {{ balancesheet.total_liabilities|e }}</a></td>
-  </tr>
-  <tr>
-    <td>Total Assets</td>
-    <td>$ {{ balancesheet.total_assets|e }}</a></td>
-    <td>Net Worth</td>
-    <td>$ {{ balancesheet.net_worth|e }}</a></td>
-  </tr>
-</table>
+    <h1>Balance Sheet</h1>
+    <table>
+        <tr>
+            <th>Assets</th>
+            <th></th>
+            <th>Liabilities & Net Worth</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Cash</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.cash) }}</td>
+            <td>Accounts Payable</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.ap) }}</td>
+        </tr>
+        <tr>
+            <td>Accounts Receivable</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.ar) }}</td>
+            <td>Notes Payable</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.notes_payable) }}</td>
+        </tr>
+        <tr>
+            <td>Inventory</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.inventory_data.total) }}</td>
+            <td>Accruals</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.accruals) }}</td>
+        </tr>
+        <tr class="total-row">
+            <td>Total Current Assets</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.total_current_assets) }}</td>
+            <td>Total Current Liabilities</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.total_current_liabilities) }}</td>
+        </tr>
+        <tr>
+            <td>Land/Buildings</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.lands_buildings) }}</td>
+            <td>Mortgage</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.mortgage) }}</td>
+        </tr>
+        <tr>
+            <td>Equipment</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.equipment) }}</td>
+            <td>Total Long Term Debt</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.total_long_term_debt) }}</td>
+        </tr>
+        <tr>
+            <td>Furniture and Fixtures</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.furniture_fixtures) }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="total-row">
+            <td>Total Fixed Assets</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.total_fixed_assets) }}</td>
+            <td>Total Liabilities</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.total_liabilities) }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Net Worth</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.net_worth) }}</td>
+        </tr>
+        <tr class="total-row">
+            <td>Total Assets</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.total_assets) }}</td>
+            <td>Sum of Liabilities & Net Worth</td>
+            <td>$ {{ '{:,.2f}'.format(balancesheet.total_liabilities + balancesheet.net_worth) }}</td>
+        </tr>
+    </table>
 </body>
 </html>
