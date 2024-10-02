@@ -26,7 +26,7 @@ class CustomerForm(Form):
     city = StringField('City', validators=required)
     state = StringField('State', validators=required)
     zipcode = StringField('Zip Code', validators=required)
-    price = StringField('Price (Dollars)', validators=required)
+    price = StringField('Amount Due (USD)', validators=required)
 
 # Vendor Form
 class VendorForm(Form):
@@ -52,6 +52,7 @@ class POForm(Form):
 class InvoiceForm(Form):
     customer = SelectField('Customer')
     number_to_invoice = StringField('Number of Units to Invoice', validators=required)
+
 
 # Build Inventory Form
 class BuildInventoryForm(Form):
