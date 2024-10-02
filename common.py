@@ -53,19 +53,19 @@ class model():
         self.customers_data.append(customer('Rakuten', 'Wilson', 'Ava', '215 2nd St', 'Suite 400', 'San Francisco', 'CA', '94105', '2800.00'))
         self.customers_data.append(customer('BestPCNow', 'Clark', 'Michael', '456 PC Lane', 'Apt 12B', 'Austin', 'TX', '78701', '2700.00'))
         
-        self.vendors_data.append(vendor('AMD', 'CPU', '200.00', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Asus', 'Motherboard', '100.00', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Corsair', 'RAM', '25.00', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Asus', 'GPU', '400.00', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Samsung', 'SSD', '85.00', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Fractal', 'Case', '43.99', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Corsair', 'CPU Cooler', '15.00', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Corsair', 'Power Supply', '73.45', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Box Box', 'Box', '1.85', '', '', '', '', ''))
-        self.vendors_data.append(vendor('None', 'Labor', '45.00', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Foamys', 'Foam', '0.58', '', '', '', '', ''))
-        self.vendors_data.append(vendor('We Luv Cables', 'Cables', '0.13', '', '', '', '', ''))
-        self.vendors_data.append(vendor('Only Fans', 'Fans', '2.49', '', '', '', '', ''))
+        self.vendors_data.append(vendor('AMD Inc.', 'CPU', '320.00', '1 AMD Place', '', 'Santa Clara', 'CA', '95054'))
+        self.vendors_data.append(vendor('AsusTek Computer Inc.', 'Motherboard', '140.00', '15 Li-Te Road', 'Beitou District', 'Taipei', '', '112'))
+        self.vendors_data.append(vendor('Corsair Components', 'RAM', '85.00', '47100 Bayside Pkwy', '', 'Fremont', 'CA', '94538'))
+        self.vendors_data.append(vendor('NVIDIA Corporation', 'GPU', '700.00', '2788 San Tomas Expy', '', 'Santa Clara', 'CA', '95051'))
+        self.vendors_data.append(vendor('Samsung Electronics', 'SSD', '110.00', '129 Samsung-ro', 'Yeongtong-gu', 'Suwon-si', 'Gyeonggi-do', '16677'))
+        self.vendors_data.append(vendor('Fractal Design', 'PC Case', '89.99', 'Fractal Design USA', '2400 North Commerce Pkwy', 'Weston', 'FL', '33326'))
+        self.vendors_data.append(vendor('Noctua', 'CPU Cooler', '60.00', 'Kundenservice Noctua', 'Kottingbrunn', '', 'Austria', '2542'))
+        self.vendors_data.append(vendor('Seasonic Electronics', 'Power Supply', '120.00', '14F, No.136, Sec.3, Ren Ai Rd.', '', 'Taipei', '', '106'))
+        self.vendors_data.append(vendor('BoxCo Packaging', 'Shipping Box', '2.50', '300 Packaging Dr.', '', 'Atlanta', 'GA', '30301'))
+        self.vendors_data.append(vendor('Tech Labor Inc.', 'Labor', '50.00', '600 Industry Way', '', 'Chicago', 'IL', '60616'))
+        self.vendors_data.append(vendor('FoamWorks', 'Packaging Foam', '1.25', '220 Foam Ave', '', 'Dallas', 'TX', '75201'))
+        self.vendors_data.append(vendor('Cable Solutions', 'Cables', '0.50', '440 Cable St', '', 'San Jose', 'CA', '95112'))
+        self.vendors_data.append(vendor('Cooling Fans Co.', 'Cooling Fans', '12.99', '678 Fan Drive', '', 'Portland', 'OR', '97205'))
 
     def reinitialize(self):
         self.__init__()
@@ -247,7 +247,7 @@ class purchase_order():
 class invoices():
     def __init__(self):
         self.invoice_events = []
-        self.invoice_number = 1
+        self.invoice_number = 1001
 
     def create_invoice(self, customer, quantity, price_per_unit, total, date_paid):
         self.invoice_events.append(invoice(self.invoice_number, customer, quantity, price_per_unit, total, date_paid))
