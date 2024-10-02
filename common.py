@@ -8,7 +8,7 @@ class model():
         self.payroll_data = payroll()
         self.invoice_history = invoices()
         self.purchase_order_history = purchase_orders()
-        self.sale_price_per_unit = 1200.00  # Fixed per the example problem
+        self.sale_price_per_unit = 4000.00  # Fixed per the example problem
         self.date = current_date()
 
         self.income_data = income_statement(sales=0,
@@ -20,14 +20,14 @@ class model():
                                             income_taxes=0)
         self.balance_sheet_data = balance_sheet(cash=2000000,
                                                 ar=0,
-                                                inventory_data=inventory(107),
-                                                lands_buildings=0,
-                                                equipment=0,
-                                                furniture_fixtures=0,
+                                                inventory_data=inventory(1000),
+                                                lands_buildings=1750000,
+                                                equipment=50000,
+                                                furniture_fixtures=25000,
                                                 ap=0,
                                                 notes_payable=0,
                                                 accruals=0,
-                                                mortgage=0)
+                                                mortgage=1500000)
         self.employees_data.append(
             employee('Emily', 'Anderson', '742 Evergreen Terrace', 'Apt 5B', 'Springfield', 'IL', '62704', '123-45-6781', '2', '85000'))
         self.employees_data.append(
@@ -285,7 +285,7 @@ class income_statement():
 
     @property
     def annual_expenses(self):
-        return self.expense_accounts.total_expenses
+        return self.expense_accounts.total_expenses * 12
 
     @property
     def gross_profit(self):
@@ -301,7 +301,7 @@ class income_statement():
 
     @property
     def net_income(self):
-        return self.operating_income - self.income_taxes
+        return self.operating_income - self.income_taxes + self.other_income
 
 class balance_sheet():
     def __init__(self, cash, ar, inventory_data, lands_buildings, equipment, furniture_fixtures,
