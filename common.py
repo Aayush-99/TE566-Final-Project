@@ -11,22 +11,22 @@ class model():
         self.sale_price_per_unit = 4000.00  # Fixed per the example problem
         self.date = current_date()
 
-        self.income_data = income_statement(sales=0,
-                                            cogs=0,
-                                            payroll=0,
-                                            payroll_withholding=0,
-                                            bills=0,
-                                            other_income=0,
-                                            income_taxes=0)
+        self.income_data = income_statement(sales=500000,
+                                            cogs=300000,
+                                            payroll=20000,
+                                            payroll_withholding=5000,
+                                            bills=15000,
+                                            other_income=10000,
+                                            income_taxes=25000)
         self.balance_sheet_data = balance_sheet(cash=2000000,
-                                                ar=0,
+                                                ar=150000,
                                                 inventory_data=inventory(1000),
                                                 lands_buildings=1750000,
                                                 equipment=50000,
                                                 furniture_fixtures=25000,
-                                                ap=0,
-                                                notes_payable=0,
-                                                accruals=0,
+                                                ap=50000,
+                                                notes_payable=100000,
+                                                accruals=20000,
                                                 mortgage=1500000)
         self.employees_data.append(
             employee('Emily', 'Anderson', '742 Evergreen Terrace', 'Apt 5B', 'Springfield', 'IL', '62704', '123-45-6781', '2', '85000'))
@@ -77,6 +77,25 @@ class current_date():
 
     def advance_a_month(self):
         self.months_advanced += 1
+        # Settle payables and receivables
+        model_instance = model()  # Assuming you have an instance to access
+        self.settle_payables_and_receivables(model_instance)
+
+    def settle_payables_and_receivables(self, model_instance):
+        current_date = self.date
+        # Settle Accounts Payable
+        for po in model_instance.purchase_order_history.po_events:
+            if not po.settled and po.due_date <= current_date:
+                model_instance.balance_sheet_data.ap -= po.total
+                model_instance.balance_sheet_data.cash -= po.total
+                po.settled = True
+
+        # Settle Accounts Receivable
+        for invoice in model_instance.invoice_history.invoice_events:
+            if not invoice.settled and invoice.due_date <= current_date:
+                model_instance.balance_sheet_data.ar -= invoice.total
+                model_instance.balance_sheet_data.cash += invoice.total
+                invoice.settled = True
 
     @property
     def date(self):
@@ -231,8 +250,12 @@ class purchase_orders():
         self.po_number = 1
 
     def create_po(self, supplier, part, quantity, price_per_unit, total, date_paid):
-        self.po_events.append(purchase_order(self.po_number, supplier, part, quantity, price_per_unit, total, date_paid))
+        new_po = purchase_order(self.po_number, supplier, part, quantity, price_per_unit, total, date_paid)
+        self.po_events.append(new_po)
         self.po_number += 1
+        # Initial impact on AP
+        model_instance = model()  # Assuming you have an instance to access
+        model_instance.balance_sheet_data.ap += total
 
 class purchase_order():
     def __init__(self, number, supplier, part, quantity, price_per_unit, total, date_paid):
@@ -242,7 +265,15 @@ class purchase_order():
         self.quantity = quantity
         self.price_per_unit = price_per_unit
         self.total = total
+
+        # Convert date_paid from string to datetime.date if it's a string
+        if isinstance(date_paid, str):
+            date_paid = datetime.datetime.strptime(date_paid, "%Y-%m-%d").date()
+
+        # Calculate the due date
         self.date_paid = date_paid
+        self.due_date = (date_paid + datetime.timedelta(days=30)).isoformat()  # 30-day payable term
+        self.settled = False
 
 class invoices():
     def __init__(self):
@@ -250,8 +281,12 @@ class invoices():
         self.invoice_number = 1001
 
     def create_invoice(self, customer, quantity, price_per_unit, total, date_paid):
-        self.invoice_events.append(invoice(self.invoice_number, customer, quantity, price_per_unit, total, date_paid))
+        new_invoice = invoice(self.invoice_number, customer, quantity, price_per_unit, total, date_paid)
+        self.invoice_events.append(new_invoice)
         self.invoice_number += 1
+        # Initial impact on AR
+        model_instance = model()  # Assuming you have an instance to access
+        model_instance.balance_sheet_data.ar += total
 
 class invoice():
     def __init__(self, number, customer, quantity, price_per_unit, total, date_paid):
@@ -260,7 +295,15 @@ class invoice():
         self.quantity = quantity
         self.price_per_unit = price_per_unit
         self.total = total
+
+        # Convert date_paid from string to datetime.date if it's a string
+        if isinstance(date_paid, str):
+            date_paid = datetime.datetime.strptime(date_paid, "%Y-%m-%d").date()
+
+        # Calculate the due date
         self.date_paid = date_paid
+        self.due_date = (date_paid + datetime.timedelta(days=30)).isoformat()  # 30-day receivable term
+        self.settled = False
 
 class income_statement():
     def __init__(self, sales, cogs, payroll, payroll_withholding, bills,
